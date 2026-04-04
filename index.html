@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo AGBooks</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <header>
+    <h1>Catálogo AGBooks</h1>
+    <button id="toggle-prices">Esconder/Mostrar Preços</button>
+  </header>
+
+  <main>
+    <div class="books-container">
+     
+      <!-- Livro 1 -->
+      <div class="book-card">
+        <img src="https://m.media-amazon.com/images/I/81csG1Z+6eL._SY425_.jpg" alt="Capa do livro JavaScript: The Good Parts">
+        <h2>O Melhor Do JavaScript</h2>
+        <p>Autor: Douglas Crockford</p>
+        <p class="price">Preço: R$ 50,00</p>
+        <button class="add-to-cart" data-book="O Melhor Do JavaScript">Adicionar ao Carrinho</button>
+      </div>
+
+      <!-- Livro 2 -->
+      <div class="book-card">
+        <img src="https://m.media-amazon.com/images/I/71dH97FwGbL._SY385_.jpg" alt="Capa do livro Clean Code">
+        <h2>Código Limpo: Habilidades Práticas do Agile Software</h2>
+        <p>Autor: Robert C. Martin</p>
+        <p class="price">Preço: R$ 60,00</p>
+        <button class="add-to-cart" data-book="Código Limpo">Adicionar ao Carrinho</button>
+      </div>
+
+      <!-- Livro 3 -->
+      <div class="book-card">
+        <img src="https://m.media-amazon.com/images/I/71f1jieYHNL._SY385_.jpg" alt="Capa do livro The Pragmatic Programmer">
+        <h2>The Pragmatic Programmer: Your Journey to Mastery, 20th Anniversary Edition</h2>
+        <p>Autor: Andrew Hunt e David Thomas</p>
+        <p class="price">Preço: R$ 70,00</p>
+        <button class="add-to-cart" data-book="The Pragmatic Programmer">Adicionar ao Carrinho</button>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>Contato: <a href="mailto:email@movedubooks.com">email@movedubooks.com</a> |
+    Telefone: (11) 1234-0000</p>
+  </footer>
+
+  <!-- SCRIPT  -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const botoesCarrinho = document.querySelectorAll('.add-to-cart');
+      const botaoToggle = document.getElementById('toggle-prices');
+      const precos = document.querySelectorAll('.price');
+
+      // Contador do carrinho
+      let contadorCarrinho = 0;
+      const criarBadge = () => {
+        let badge = document.querySelector('#cart-badge');
+        if (!badge) {
+          badge = document.createElement('span');
+          badge.id = 'cart-badge';
+          badge.style.position = 'fixed';
+          badge.style.top = '20px';
+          badge.style.right = '20px';
+          badge.style.background = '#ff3b3b';
+          badge.style.color = '#fff';
+          badge.style.padding = '6px 10px';
+          badge.style.borderRadius = '50%';
+          badge.style.fontWeight = 'bold';
+          badge.style.boxShadow = '0 2px 6px rgba(0,0,0,0.3)';
+          document.body.appendChild(badge);
+        }
+        badge.textContent = contadorCarrinho;
+      };
+
+      // Função 1: Adicionar ao carrinho
+      botoesCarrinho.forEach(botao => {
+        botao.addEventListener('click', () => {
+          const nomeLivro = botao.getAttribute('data-book');
+          alert(`Livro "${nomeLivro}" adicionado!`);
+          contadorCarrinho++;
+          criarBadge();
+        });
+      });
+
+      // Função 2: Mostrar/Esconder preços
+      let precosVisiveis = true;
+      botaoToggle.addEventListener('click', () => {
+        precosVisiveis = !precosVisiveis;
+        precos.forEach(preco => {
+          preco.style.display = precosVisiveis ? 'block' : 'none';
+        });
+        botaoToggle.textContent = precosVisiveis ? 'Esconder Preços' : 'Mostrar Preços';
+      });
+    });
+  </script>
+</body>
+</html>
